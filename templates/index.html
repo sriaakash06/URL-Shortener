@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>URL Shortener</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <!-- Outer Glow Card -->
+
+    <div class="card">
+
+        <!-- Inner Dark Card -->
+
+        <div class="card2">
+
+            <h1>🔗 URL Shortener</h1>
+
+            <p class="subtitle">
+                Convert long URLs into short powerful links
+            </p>
+
+            <form method="POST" action="/shorten">
+
+                <input
+                    type="text"
+                    name="url"
+                    placeholder="Paste your long URL here..."
+                    required
+                >
+
+                <button type="submit">
+                    Shorten URL
+                </button>
+
+            </form>
+
+            {% if short_url %}
+
+            <div class="result-box">
+
+                <h3>Your Short URL</h3>
+
+                <a href="{{ short_url }}"
+                   target="_blank">
+
+                    {{ short_url }}
+
+                </a>
+
+                <button onclick="copyURL()">
+                    Copy Link
+                </button>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function copyURL() {
+
+            const url =
+                document.querySelector('.result-box a').innerText;
+
+            navigator.clipboard.writeText(url);
+
+            alert('Copied Successfully!');
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    overflow:hidden;
+}
+
+/* Background Glow */
+
+.background{
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:linear-gradient(
+        163deg,
+        #00ff75 0%,
+        #3700ff 100%
+    );
+    filter:blur(120px);
+    opacity:0.5;
+}
+
+/* Outer Card */
+
+.card{
+    width:430px;
+    padding:3px;
+    border-radius:25px;
+    background-image:linear-gradient(
+        163deg,
+        #00ff75 0%,
+        #3700ff 100%
+    );
+    transition:all .3s;
+    position: relative;
+    z-index: 1;
+}
+
+.card:hover{
+    box-shadow:0px 0px 30px 1px rgba(0,255,117,0.30);
+}
+
+/* Inner Card */
+
+.card2{
+    background:#1a1a1a;
+    border-radius:22px;
+    padding:40px;
+    transition:all .2s;
+    color:white;
+    text-align:center;
+}
+
+.card2:hover{
+    transform:scale(0.98);
+}
+
+/* Title */
+
+.card2 h1{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+/* Subtitle */
+
+.subtitle{
+    color:#94a3b8;
+    margin-bottom:30px;
+}
+
+/* Input */
+
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:20px;
+    outline:none;
+    background:#262626;
+    color:white;
+    font-size:15px;
+}
+
+input::placeholder{
+    color:#94a3b8;
+}
+
+/* Button */
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        163deg,
+        #00ff75 0%,
+        #3700ff 100%
+    );
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+/* Result Box */
+
+.result-box{
+    margin-top:25px;
+    padding:20px;
+    border-radius:15px;
+    background:#262626;
+}
+
+.result-box h3{
+    margin-bottom:10px;
+}
+
+.result-box a{
+    display:block;
+    margin-bottom:15px;
+    color:#38bdf8;
+    text-decoration:none;
+    word-wrap:break-word;
+}
