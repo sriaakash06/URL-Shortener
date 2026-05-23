@@ -16,10 +16,10 @@ load_dotenv(dotenv_path=env_path)
 app = Flask(__name__)
 
 # MongoDB Connection
-mongodb_uri = os.getenv("MONGODB_URI")
+mongodb_uri = os.getenv("MONGODB_URI") or os.getenv("MONGO_URI")
 
 if not mongodb_uri or mongodb_uri == "your_mongodb_connection_string":
-    print("WARNING: MONGODB_URI is not set or is set to a placeholder in your .env file.")
+    print("WARNING: MONGODB_URI or MONGO_URI is not set or is set to a placeholder.")
     print("Defaulting to local MongoDB (mongodb://localhost:27017/).")
     mongodb_uri = "mongodb://localhost:27017/"
 
