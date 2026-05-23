@@ -1,4 +1,4 @@
-# 🔗 Sleek URL Shortener
+# 🔗 Simple URL Shortener
 
 A modern, fast, and professional web application that converts long, cumbersome URLs into short, clean, and shareable links. Built with **Flask** and backed by **MongoDB**, it features a responsive, premium glassmorphic dark-themed interface with vibrant glow effects and interactive user features.
 
