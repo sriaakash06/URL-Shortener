@@ -6,6 +6,7 @@ import random
 import string
 import certifi
 
+
 from pathlib import Path
 from pymongo.errors import ServerSelectionTimeoutError, ConfigurationError
 
@@ -117,6 +118,7 @@ def redirect_url(short_code):
         return redirect(data['original_url'])
 
     return "URL not found"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
