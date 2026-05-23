@@ -128,9 +128,12 @@ This project includes a `Procfile` ready for hosting on platforms like **Heroku*
 
 This project is open-source and available under the [MIT License](LICENSE).
 
-👨‍💻 Author
+---
 
-Sri Aakash
+## 👨‍💻 Author
 
-B.Tech Information Technology Student
-Passionate about Full Stack Development & AI Projects 🚀
+**Sri Aakash**
+- 🎓 B.Tech Information Technology Student
+- 💡 Passionate about Full Stack Development & AI Projects 🚀
+
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=flat&logo=github)](https://github.com/sriaakash06)
