@@ -15,27 +15,48 @@ load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 
-# MongoDB Connection
+# MongoDB Connection Helper to mask credentials in logs
+def get_masked_uri(uri):
+    if not uri:
+        return "None"
+    if "@" in uri:
+        try:
+            prefix, rest = uri.split("@", 1)
+            scheme = ""
+            if "://" in prefix:
+                scheme, credentials = prefix.split("://", 1)
+                scheme += "://"
+            else:
+                credentials = prefix
+            if ":" in credentials:
+                user, _ = credentials.split(":", 1)
+                return f"{scheme}{user}:****@{rest}"
+            return f"{scheme}****@{rest}"
+        except:
+            return "[Masked URI (could not parse)]"
+    return uri
+
 mongodb_uri = os.getenv("MONGODB_URI") or os.getenv("MONGO_URI")
 
+print("DEBUG: Checking Database Connection...")
+print(f"DEBUG: Resolved Mongo URI -> {get_masked_uri(mongodb_uri)}")
+
 if not mongodb_uri or mongodb_uri == "your_mongodb_connection_string":
-    print("WARNING: MONGODB_URI or MONGO_URI is not set or is set to a placeholder.")
-    print("Defaulting to local MongoDB (mongodb://localhost:27017/).")
-    mongodb_uri = "mongodb://localhost:27017/"
+    print("ERROR: MONGODB_URI/MONGO_URI is not set or is using a placeholder.")
+    raise Exception("Database Connection URI is not set! Please configure MONGODB_URI or MONGO_URI in your environment.")
 
 try:
     client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
     db = client["url_shortener_db"]
     collection = db["urls"]
     
-    # Verify connection on startup with a short timeout
-    print(f"Connecting to MongoDB...")
+    # Ping test to verify connection on startup (3-second timeout)
     client.admin.command('ping', serverSelectionTimeoutMS=3000)
-    print("MongoDB connection verified successfully!")
+    print("MongoDB Connected Successfully!")
 except Exception as e:
     print("\n" + "="*80)
     print("DATABASE CONNECTION ERROR:")
-    print(f"Could not connect to MongoDB at: {mongodb_uri}")
+    print(f"Could not connect to MongoDB at: {get_masked_uri(mongodb_uri)}")
     print("-"*80)
     if "localhost" in mongodb_uri or "127.0.0.1" in mongodb_uri:
         print("It looks like you are trying to connect to a local MongoDB instance, but it is not running.")
@@ -45,8 +66,8 @@ except Exception as e:
     else:
         print("It looks like you are trying to connect to a remote MongoDB instance (e.g. MongoDB Atlas).")
         print("Please verify that:")
-        print("  1. The MONGODB_URI in your .env file is correct (currently it uses a placeholder/fake domain).")
-        print("  2. Your IP address is whitelisted in your MongoDB Atlas Network Access settings.")
+        print("  1. The MONGODB_URI / MONGO_URI in your settings is correct (currently it uses a placeholder/fake domain).")
+        print("  2. Your IP address is whitelisted in your MongoDB Atlas Network Access settings (add 0.0.0.0/0).")
         print("  3. Your database username and password are correct.")
     print("="*80 + "\n")
     raise e
